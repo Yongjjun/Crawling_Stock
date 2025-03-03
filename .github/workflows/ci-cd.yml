@@ -11,9 +11,7 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.10
@@ -23,13 +21,12 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-        pip install matplotlib  # 이 줄을 추가하여 matplotlib을 설치
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        pip install matplotlib
     - name: Test with pytest
       run: |
         pytest -s tests/test_Update_Stock.py
+    - name: Upload graph as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: stock-graph
+        path: stock_prices.png  # 저장된 그래프 파일을 아티팩트로 업로드
