@@ -1,4 +1,3 @@
-import time
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import datetime as dt
@@ -28,7 +27,11 @@ if not stocks:
     exit()
 
 # 웹 드라이버 실행
-driver = webdriver.Chrome()
+options = webdriver.ChromeOptions()
+# 창 숨기는 옵션 추가
+options.add_argument("headless")
+# driver 실행
+driver = webdriver.Chrome(options=options)
 
 # 각 종목 데이터를 저장할 리스트
 dataframes = []
