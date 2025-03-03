@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -23,20 +24,12 @@ jobs:
       run: |
         pip install -r requirements.txt
         pip install matplotlib  # 이 줄을 추가하여 matplotlib을 설치
-        pip install selenium pytest  # 추가로 pytest, selenium도 설치
-    - name: Install Chrome and Chromedriver
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y wget
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo dpkg -i google-chrome-stable_current_amd64.deb
-        sudo apt --fix-broken install
-    - name: List files in the repo
-      run: ls -R
     - name: Lint with flake8
       run: |
+        # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest -v -s tests/test_Update_Stock.py
+        pytest -s tests/test_Update_Stock.py
