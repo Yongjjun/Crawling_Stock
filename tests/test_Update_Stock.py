@@ -81,11 +81,7 @@ for stock in df_filtered["종목"].unique():
     stock_df = df_filtered[df_filtered["종목"] == stock]
     plt.plot(stock_df["날짜"], stock_df["종가"], label=stock)
 
-# y축에 정수만 표시하는 함수
-def format_yaxis(x, pos):
-    return f'{int(x):,}'  # 천 단위로 쉼표를 추가하여 정수로 표시
-
-# x축 범위를 사용자 지정 날짜로 설정
+# 그래프 파일로 저장
 plt.title("주식 종가 비교")
 plt.xlabel("날짜")
 plt.ylabel("종가 (원)")
@@ -94,7 +90,15 @@ plt.xlim(start_date, end_date)
 plt.legend()
 plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=7))
 
+# y축에 정수만 표시하는 함수
+def format_yaxis(x, pos):
+    return f'{int(x):,}'  # 천 단위로 쉼표를 추가하여 정수로 표시
+
 # y축을 정수로 설정하고, 천 단위로 쉼표 표시
 plt.gca().yaxis.set_major_formatter(FuncFormatter(format_yaxis))
 
-plt.show()
+# 그래프를 파일로 저장
+plt.savefig('stock_prices.png')
+
+# 저장된 그래프를 로그로 출력 (GitHub Actions에서는 이 파일을 확인할 수 있음)
+print("그래프가 'stock_prices.png'로 저장되었습니다.")
