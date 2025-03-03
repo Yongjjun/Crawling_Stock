@@ -15,8 +15,8 @@ import os
 # plt.rcParams['font.family'] = 'AppleGothic'
 
 # 한글 폰트 설정 (Ubuntu 환경에서는 예시로 NanumGothic 설치)
-# font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"  # GitHub Actions 환경에서의 경로
-font_path = "/Users/harrychang/Downloads/fonts/NanumGothic.ttf"  # Local 환경에서의 경로
+font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"  # GitHub Actions 환경에서의 경로
+# font_path = "/Users/harrychang/Downloads/fonts/NanumGothic.ttf"  # Local 환경에서의 경로
 font_prop = fm.FontProperties(fname=font_path).get_name()
 
 # matplotlib 설정
