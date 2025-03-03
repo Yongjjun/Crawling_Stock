@@ -66,20 +66,9 @@ df_all.dropna(subset=["날짜"], inplace=True)
 
 df_all.sort_values(by="날짜", inplace=True)
 
-# 사용자 입력: 조회할 날짜 범위 설정
-start_date_str = input("조회할 시작 날짜를 입력하세요 (YYYY-MM-DD, Enter 시 전체 기간): ").strip()
-end_date_str = input("조회할 종료 날짜를 입력하세요 (YYYY-MM-DD, Enter 시 오늘 날짜): ").strip()
-
-# 날짜 변환 (입력값이 없으면 전체 기간 설정)
-if start_date_str:
-    start_date = pd.to_datetime(start_date_str, errors="coerce")
-else:
-    start_date = df_all["날짜"].min()
-
-if end_date_str:
-    end_date = pd.to_datetime(end_date_str, errors="coerce")
-else:
-    end_date = dt.datetime.today()
+# 하드코딩된 날짜 범위 설정 (CI/CD 환경에 맞게 날짜 자동 설정)
+start_date = df_all["날짜"].min()  # 가장 초기 날짜
+end_date = dt.datetime.today()  # 오늘 날짜
 
 # 특정 기간 데이터 필터링
 df_filtered = df_all[(df_all["날짜"] >= start_date) & (df_all["날짜"] <= end_date)]
