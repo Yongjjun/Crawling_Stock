@@ -5,15 +5,18 @@ from matplotlib.ticker import FuncFormatter
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import matplotlib.font_manager as fm
+import pytest
+import os
+
 
 # 한글 폰트 설정
 # plt.rcParams['font.family'] = 'AppleGothic'
 
 # 한글 폰트 설정 (Ubuntu 환경에서는 예시로 NanumGothic 설치)
-font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"  # GitHub Actions 환경에서의 경로
+# font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"  # GitHub Actions 환경에서의 경로
+font_path = "/Users/harrychang/Downloads/fonts/NanumGothic.ttf"  # Local 환경에서의 경로
 font_prop = fm.FontProperties(fname=font_path).get_name()
 
 # matplotlib 설정
@@ -109,12 +112,16 @@ plt.gca().yaxis.set_major_formatter(FuncFormatter(format_yaxis))
 
 # matplotlib 설정
 rcParams['font.family'] = font_prop
-# 그래프 코드
-plt.plot([1, 2, 3], [1, 4, 9])
-plt.title('주식 데이터')  # 한글 제목
-plt.xlabel('날짜')
-plt.ylabel('가격')
-plt.savefig('stock_prices.png')  # 저장
 
-# 저장된 그래프를 로그로 출력 (GitHub Actions에서는 이 파일을 확인할 수 있음)
-print("그래프가 'stock_prices.png'로 저장되었습니다.")
+# 예시: 테스트 함수
+def test_plot_stock_prices():
+    # 데이터 로딩 및 그래프 생성 코드
+    # 여기에 실제 테스트 코드를 작성
+    plt.plot([1, 2, 3], [1, 4, 9])
+    plt.title('주식 데이터')  # 한글 제목
+    plt.xlabel('날짜')
+    plt.ylabel('가격')
+    plt.savefig('stock_prices.png')
+
+    # 그래프 파일이 생성되었는지 확인
+    assert os.path.exists('stock_prices.png')
