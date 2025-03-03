@@ -26,7 +26,8 @@ jobs:
       run: |
         pytest -s tests/test_Update_Stock.py
     - name: Upload graph as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: stock-graph
         path: stock_prices.png  # 그래프 파일 경로 (예시)
+
