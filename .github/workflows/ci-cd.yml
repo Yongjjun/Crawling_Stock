@@ -33,8 +33,8 @@ jobs:
     - name: Archive the image file
       run: |
         tar -czvf stock_prices.tar.gz stock_prices.png
-    - name: Upload the tar.gz archive using @github/artifact
-      uses: actions/upload-artifact@latest
+    - name: Upload the tar.gz archive using GitHub's `upload-artifact`
+      uses: actions/upload-artifact@v2
       with:
         name: stock-prices-archive
         path: stock_prices.tar.gz
