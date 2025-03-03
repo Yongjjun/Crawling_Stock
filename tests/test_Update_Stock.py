@@ -5,9 +5,16 @@ from matplotlib.ticker import FuncFormatter
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import matplotlib.pyplot as plt
+from matplotlib import rcParams
+import matplotlib.font_manager as fm
 
 # 한글 폰트 설정
-plt.rcParams['font.family'] = 'AppleGothic'
+# plt.rcParams['font.family'] = 'AppleGothic'
+
+# 한글 폰트 설정 (Ubuntu 환경에서는 예시로 NanumGothic 설치)
+font_path = "/Users/harrychang/Downloads/fonts/NanumGothic.ttf"  # 폰트 경로
+font_prop = fm.FontProperties(fname=font_path).get_name()
 
 # 크롤링할 종목 리스트
 stocks = {
@@ -97,8 +104,14 @@ def format_yaxis(x, pos):
 # y축을 정수로 설정하고, 천 단위로 쉼표 표시
 plt.gca().yaxis.set_major_formatter(FuncFormatter(format_yaxis))
 
-# 그래프를 파일로 저장
-plt.savefig('stock_prices.png')
+# matplotlib 설정
+rcParams['font.family'] = font_prop
+# 그래프 코드
+plt.plot([1, 2, 3], [1, 4, 9])
+plt.title('주식 데이터')  # 한글 제목
+plt.xlabel('날짜')
+plt.ylabel('가격')
+plt.savefig('stock_prices.png')  # 저장
 
 # 저장된 그래프를 로그로 출력 (GitHub Actions에서는 이 파일을 확인할 수 있음)
 print("그래프가 'stock_prices.png'로 저장되었습니다.")
